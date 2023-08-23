@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@fastify/cors": "^8.3.0",
+    "axios": "^1.4.0",
+    "fastify": "^4.21.0",
+    "http-proxy": "^1.18.1",
+    "node-html-parser": "^6.1.6"
+  }
+}

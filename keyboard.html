@@ -1,143 +1,180 @@
-<div id="myWindow" class="window">
-    <div class="window-top">
-        <button class="round green"></button><button class="round yellow"></button><button class="round red"></button>
+<div class="virtual-keyboard-window">
+    <div class="window-top">Virtual Keyboard
+        <button class="btn-close">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32">
+                <path
+                    d="M24 9.4L22.6 8L16 14.6L9.4 8L8 9.4l6.6 6.6L8 22.6L9.4 24l6.6-6.6l6.6 6.6l1.4-1.4l-6.6-6.6L24 9.4z"
+                    fill="currentColor"></path>
+            </svg>
+        </button>
     </div>
     <div class="window-content">
         <div class="simple-keyboard"></div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css" />
+<div class="keyboard-toggle">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+        <g fill="none">
+            <path
+                d="M19.745 5a2.25 2.25 0 0 1 2.25 2.25v9.505a2.25 2.25 0 0 1-2.25 2.25H4.25A2.25 2.25 0 0 1 2 16.755V7.25A2.25 2.25 0 0 1 4.25 5h15.495zm-2.495 9.5H6.75l-.102.007a.75.75 0 0 0 0 1.486L6.75 16h10.5l.102-.007a.75.75 0 0 0 0-1.486l-.102-.007zM16.5 11a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm-2.995 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm-3 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm-3 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zM6 8a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm2.995 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm3 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm3 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm3 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2z"
+                fill="currentColor"></path>
+        </g>
+    </svg>
+</div>
+<script src="/public/jquery-3.7.0.min.js"></script>
+<script src="/public/jquery-ui.min.js"></script>
+<script src="/public/jquery.ui.touch-punch.min.js"></script>
+<script src="/public/simple-keyboard-3.7.2.js"></script>
+<script src="/public/keycode.js"></script>
+<link rel="stylesheet" href="/public/simple-keyboard-3.7.2.css" />
 <style>
+    html,
     body {
-        background: #333;
-    }
-
-    .window {
-        position: fixed;
-        top: 0;
-        width: 400px;
-        height: 250px;
-        border-radius: 10px;
-        border: none;
-        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0, 0.9), -1px 1px 4px rgba(0, 0, 0, 0, 0.9);
-        background: #fff;
-    }
-
-    .window-content {
         height: 100%;
     }
 
-    .window-top,
-    .window-top-no-bind {
+    ::-webkit-scrollbar {
+        display: none;
+        width: 0px;
+        background: transparent;
+        /* make scrollbar transparent */
+    }
+</style>
+<style>
+    .virtual-keyboard-window {
+        position: fixed;
+        top: 0;
+        width: 800px;
+        border-radius: 10px;
+        box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+        background: #ececec;
+        z-index: 999;
+        overflow: hidden;
+    }
 
+    .virtual-keyboard-window .window-content {
+        height: 100%;
+    }
+
+    .hg-theme-default .hg-button {
+        height: 45px;
+    }
+
+    .virtual-keyboard-window .window-top {
         cursor: move;
-        text-align: right;
+        text-align: center;
         height: 20px;
         border-top-right-radius: 5px;
         border-top-left-radius: 5px;
         padding: 5px;
         background-color: #ddd;
+        color: #333;
     }
 
-    .window-top-no-bind {
-        cursor: inherit;
-    }
-
-    .round {
-        height: 16px;
-        width: 16px;
-        border-radius: 50%;
-        border: none;
-        margin-right: 6px;
-        box-shadow: 1px 1px 2px #000;
-    }
-
-    .green {
-        background-color: limegreen;
-    }
-
-    .yellow {
-        background-color: yellow;
-    }
-
-    .red {
-        cursor: pointer;
-        background-color: red;
-    }
-
-    #myWindow {
-        z-index: 999;
-    }
-
-    #myWindow2 {
+    .virtual-keyboard-window .btn-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 0;
         top: 0;
-        left: 500px;
+        width: 50px;
+        height: 30px;
+        box-sizing: border-box;
+        padding: 5px 15px;
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+
+
+    .keyboard-toggle {
+        width: 20px;
+        height: 20px;
+        padding: 5px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        opacity: 0.5;
+        box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.1);
+        color: #333;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        z-index: 999;
+        cursor: pointer;
     }
 </style>
 <script>
-    // You can choose to have an element with the class "window-top" inside of your draggable window that will act as the "handle" for the window or it will attach to the element itself
-
-    function makeDraggable(elmnt) {
-        // Make an element draggable (or if it has a .window-top class, drag based on the .window-top element)
-        let currentPosX = 0, currentPosY = 0, previousPosX = 0, previousPosY = 0;
-
-        // If there is a window-top classed element, attach to that element instead of full window
-        if (elmnt.querySelector('.window-top')) {
-            // If present, the window-top element is where you move the parent element from
-            elmnt.querySelector('.window-top').onmousedown = dragMouseDown;
-            elmnt.querySelector('.window-top').ontouchstart = dragMouseDown;
+    let dragging = false;
+    $(".virtual-keyboard-window").draggable({
+        containment: "parent",
+        handle: ".window-top",
+        drag: function (event, ui) {
+            localStorage.setItem('keyboard-position', JSON.stringify(ui.position));
+        },
+        start: function (event, ui) {
+            dragging = true;
+        },
+        stop: function (event, ui) {
+            setTimeout(() => {
+                dragging = false;
+            }, 300);
         }
-        else {
-            // Otherwise, move the element itself
-            elmnt.onmousedown = dragMouseDown;
+    });
+    $(".keyboard-toggle").draggable({
+        containment: "parent",
+        drag: function (event, ui) {
+            localStorage.setItem('keyboard-toggle-position', JSON.stringify(ui.position));
+        },
+        start: function (event, ui) {
+            dragging = true;
+        },
+        stop: function (event, ui) {
+            setTimeout(() => {
+                dragging = false;
+            }, 300);
         }
-
-        function dragMouseDown(e) {
-            // Prevent any default action on this element (you can remove if you need this element to perform its default action)
-            e.preventDefault();
-            // Get the mouse cursor position and set the initial previous positions to begin
-            previousPosX = e.clientX;
-            previousPosY = e.clientY;
-            // When the mouse is let go, call the closing event
-            document.onmouseup = closeDragElement;
-            // call a function whenever the cursor moves
-            document.onmousemove = elementDrag;
-        }
-
-        function elementDrag(e) {
-            // Prevent any default action on this element (you can remove if you need this element to perform its default action)
-            e.preventDefault();
-            // Calculate the new cursor position by using the previous x and y positions of the mouse
-            currentPosX = previousPosX - e.clientX;
-            currentPosY = previousPosY - e.clientY;
-            // Replace the previous positions with the new x and y positions of the mouse
-            previousPosX = e.clientX;
-            previousPosY = e.clientY;
-            // Set the element's new position
-            elmnt.style.top = (elmnt.offsetTop - currentPosY) + 'px';
-            elmnt.style.left = (elmnt.offsetLeft - currentPosX) + 'px';
-        }
-
-        function closeDragElement() {
-            // Stop moving when mouse button is released and release events
-            document.onmouseup = null;
-            document.onmousemove = null;
-        }
+    });
+    function showKeyboard() {
+        if (dragging) return;
+        $('.virtual-keyboard-window').show();
+        $('.keyboard-toggle').hide();
+        localStorage.setItem('virtual-keyboard-visible', 'true')
     }
-
-    // Make myWindow and myWindow2 draggable in different ways...
-
-    // myWindow will only be able to be moved via the top bar (.window-top element). The main element does nothing on mouse down.
-    makeDraggable(document.querySelector('#myWindow'));
-
-
-    //And this is just for fun
-    for (const closeElement of document.querySelectorAll('.round.red')) {
-        closeElement.addEventListener('click', function () {
-
-        });
+    function hideKeyboard() {
+        if (dragging) return;
+        $('.virtual-keyboard-window').hide();
+        $('.keyboard-toggle').show();
+        localStorage.setItem('virtual-keyboard-visible', 'false')
     }
+    $('.btn-close').click(hideKeyboard);
+    $('.keyboard-toggle').click(showKeyboard);
+    if (localStorage.getItem('virtual-keyboard-visible') === 'true' || localStorage.getItem('virtual-keyboard-visible') === null) {
+        showKeyboard();
+    } else {
+        hideKeyboard();
+    }
+    let keyboardPosition = { left: (window.innerWidth - 800) / 2, top: window.innerHeight - 300 }
+    if (localStorage.getItem('keyboard-position')) {
+        keyboardPosition = JSON.parse(localStorage.getItem('keyboard-position'));
+        keyboardPosition.left = Math.min(keyboardPosition.left, window.innerWidth - 800);
+        keyboardPosition.top = Math.min(keyboardPosition.top, window.innerHeight - 300);
+    }
+    $('.virtual-keyboard-window').css('left', keyboardPosition.left);
+    $('.virtual-keyboard-window').css('top', keyboardPosition.top);
+    let togglePosition = { left: window.innerWidth - 100, top: window.innerHeight - 100 }
+    if (localStorage.getItem('keyboard-toggle-position')) {
+        togglePosition = JSON.parse(localStorage.getItem('keyboard-toggle-position'));
+        togglePosition.left = Math.min(togglePosition.left, window.innerWidth - 50);
+        togglePosition.top = Math.min(togglePosition.top, window.innerHeight - 50);
+    }
+    $('.keyboard-toggle').css('left', togglePosition.left);
+    $('.keyboard-toggle').css('top', togglePosition.top);
 
     const Keyboard = window.SimpleKeyboard.default;
     const keyboard = new Keyboard({
@@ -152,5 +189,69 @@
 
     function onKeyPress(button) {
         console.log("Button pressed", button);
+        if (button === "{shift}" || button === "{lock}") {
+            handleShift();
+            return
+        }
+        keyboard.clearInput();
+        let key = button;
+        if (key === ".com") {
+            for (let char of ".com".split('')) {
+                sendKey(char);
+            }
+            return
+        }
+        switch (key) {
+            case "{bksp}":
+                key = "Backspace";
+                break;
+            case "{enter}":
+                key = "Enter";
+                break;
+            case "{space}":
+                key = " ";
+                break;
+            case "{tab}":
+                key = "Tab";
+                break;
+            case "{esc}":
+                key = "Escape";
+                break;
+            case "{lock}":
+                key = "CapsLock";
+                break;
+            case "{shift}":
+                key = "Shift";
+                break;
+            case "{alt}":
+                key = "Alt";
+                break;
+            case "{ctrl}":
+                key = "Control";
+                break;
+        }
+        sendKey(key);
     }
+
+    function sendKey(key) {
+        let ev = new KeyboardEvent('keydown', {
+            key,
+            code: keyCode[key]
+        })
+        window.dispatchEvent(ev)
+    }
+
+    function handleShift() {
+        let currentLayout = keyboard.options.layoutName;
+        let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+        keyboard.setOptions({
+            layoutName: shiftToggle
+        });
+    }
+
+
+    $('.virtual-keyboard-window,.keyboard-toggle').bind('touchstart mousedown', function (event) {
+        event.stopPropagation();
+    });
 </script>

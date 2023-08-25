@@ -26,6 +26,7 @@
 <script src="/public/jquery.ui.touch-punch.min.js"></script>
 <script src="/public/simple-keyboard-3.7.2.js"></script>
 <script src="/public/keycode.js"></script>
+<script src="/public/eruda.js"></script>
 <link rel="stylesheet" href="/public/simple-keyboard-3.7.2.css" />
 <style>
     html,
@@ -110,6 +111,7 @@
     }
 </style>
 <script>
+    eruda.init();
     let dragging = false;
     $(".virtual-keyboard-window").draggable({
         containment: "parent",

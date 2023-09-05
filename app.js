@@ -28,8 +28,8 @@ module.exports = async function (fastify, opts) {
     });
 
     fastify.register(fstatic, {
-        root: path.join(__dirname, "public"),
-        prefix: "/public/"
+        root: path.join(__dirname, "lib"),
+        prefix: "/lib/"
     });
 
     fastify.register(cors, {

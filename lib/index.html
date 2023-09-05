@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang='en-us'>
+
+<head>
+	<meta charset='utf-8'/>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <link rel="stylesheet" href="/lib/simple-keyboard-3.7.2.css" />
+    <link rel="stylesheet" href="/lib/keyboard.css" />
+	<script src='lib/matoya.js'></script>
+	<script src='lib/weblib.js'></script>
+	<script src='lib/parsec.js'></script>
+</head>
+
+<body>
+<script>
+	(async function () {
+		const wasm = 'parsecd';
+		const userEnv = PARSEC_ENV;
+
+		const html = document.querySelector('html');
+		html.style.width = '100%';
+		html.style.height = '100%';
+		html.style.margin = 0;
+
+		const body = document.querySelector('body');
+		body.style.width = '100%';
+		body.style.height = '100%';
+		body.style.background = 'black';
+		body.style.overflow = 'hidden';
+		body.style.margin = 0;
+
+		if (!await MTY_Start(wasm, body, userEnv)) {
+			body.style.fontFamily = 'sans-serif';
+			body.style.fontSize = '30px';
+			body.style.background = 'black';
+			body.style.color = 'white';
+			body.style.textAlign = 'center';
+			body.style.padding = '10% 30px 0 30px';
+
+			document.body.innerHTML =
+				'<div>Your browser does not support the Parsec web app. The web app requires WebGL and WebAssembly 64-bit support.</div>' +
+				'<div style="margin-top:30px">Check the <a href="https://parsec.app/downloads">Downloads</a> page for our native app.</div>';
+		}
+
+		window.history.replaceState(null, document.title, '/');
+	})();
+
+	console.log('%cSTOP! ✋ This area is intended for developers. Pasting something here could give strangers access to your Parsec account.', 'font-size: 18px; font-weight: 700;');
+</script>
+<div class="virtual-keyboard-window">
+    <div class="window-top">Virtual Keyboard
+        <button class="btn-close">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32">
+                <path
+                    d="M24 9.4L22.6 8L16 14.6L9.4 8L8 9.4l6.6 6.6L8 22.6L9.4 24l6.6-6.6l6.6 6.6l1.4-1.4l-6.6-6.6L24 9.4z"
+                    fill="currentColor"></path>
+            </svg>
+        </button>
+    </div>
+    <div class="window-content">
+        <div class="simple-keyboard"></div>
+    </div>
+</div>
+<div class="keyboard-toggle">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+        <g fill="none">
+            <path
+                d="M19.745 5a2.25 2.25 0 0 1 2.25 2.25v9.505a2.25 2.25 0 0 1-2.25 2.25H4.25A2.25 2.25 0 0 1 2 16.755V7.25A2.25 2.25 0 0 1 4.25 5h15.495zm-2.495 9.5H6.75l-.102.007a.75.75 0 0 0 0 1.486L6.75 16h10.5l.102-.007a.75.75 0 0 0 0-1.486l-.102-.007zM16.5 11a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm-2.995 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm-3 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm-3 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zM6 8a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm2.995 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm3 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm3 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2zm3 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2z"
+                fill="currentColor"></path>
+        </g>
+    </svg>
+</div>
+<script src="/lib/jquery-3.7.0.min.js"></script>
+<script src="/lib/jquery-ui.min.js"></script>
+<script src="/lib/jquery.ui.touch-punch.min.js"></script>
+<script src="/lib/simple-keyboard-3.7.2.js"></script>
+<script src="/lib/keycode.js"></script>
+<script src="/lib/keyboard.js"></script>
+</body>
+</html>

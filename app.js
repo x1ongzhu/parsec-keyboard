@@ -9,6 +9,17 @@ module.exports.options = {};
 
 module.exports = async function (fastify, opts) {
     // Place here your custom code!
+    fastify.register(fstatic, {
+        root: path.join(__dirname, "lib"),
+        prefix: "/lib/",
+        setHeaders: (res, path, stat) => {
+            res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+        },
+    });
+
+    fastify.register(cors, {
+        // put your options here
+    });
 
     // Do not touch the following lines
 
@@ -25,14 +36,5 @@ module.exports = async function (fastify, opts) {
     fastify.register(AutoLoad, {
         dir: path.join(__dirname, "routes"),
         options: Object.assign({}, opts),
-    });
-
-    fastify.register(fstatic, {
-        root: path.join(__dirname, "lib"),
-        prefix: "/lib/"
-    });
-
-    fastify.register(cors, {
-        // put your options here
     });
 };

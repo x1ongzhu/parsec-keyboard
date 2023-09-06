@@ -12,7 +12,7 @@
         // VConsole will be exported to `window.VConsole` by default.
         var vConsole = new window.VConsole();
         var parsecPlugin = new VConsole.VConsolePlugin('parsec', 'Parsec')
-
+        window.frameInterval = localStorage.getItem('frameInterval') || 40;
         parsecPlugin.on('renderTab', function (callback) {
             var html = '<div id="vconsole-parsec"></div>';
             callback(html);

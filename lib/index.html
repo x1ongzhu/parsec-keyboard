@@ -7,9 +7,59 @@
     <link rel="stylesheet" href="/lib/simple-keyboard-3.7.2.css" />
     <link rel="stylesheet" href="/lib/keyboard.css" />
     <script src="lib/vconsole.js"></script>
+    <script src="lib/vconsole-stat-plugin.min.js"></script>
     <script>
         // VConsole will be exported to `window.VConsole` by default.
         var vConsole = new window.VConsole();
+        var parsecPlugin = new VConsole.VConsolePlugin('parsec', 'Parsec')
+
+        parsecPlugin.on('renderTab', function (callback) {
+            var html = '<div id="vconsole-parsec"></div>';
+            callback(html);
+            setInterval(() => {
+                $('#vconsole-parsec').html('frameInterval=' + (window.frameInterval || 0));
+            }, 1000);
+        });
+        var type;
+        parsecPlugin.on('addTool', function (callback) {
+            var button = {
+                name: 'Reload',
+                onClick: function (event) {
+                    location.reload();
+                }
+            };
+            function add(i) {
+                window.frameInterval = (window.frameInterval || 40) + i;
+                $('#vconsole-parsec').html('frameInterval=' + (window.frameInterval || 0));
+                localStorage.setItem('frameInterval', window.frameInterval);
+            }
+            var button1 = {
+                name: '-5',
+                onClick: function (event) {
+                    add(-5)
+                }
+            };
+            var button2 = {
+                name: '-1',
+                onClick: function (event) {
+                    add(-1)
+                }
+            };
+            var button3 = {
+                name: '+1',
+                onClick: function (event) {
+                    add(1)
+                }
+            };
+            var button4 = {
+                name: '+5',
+                onClick: function (event) {
+                    add(5)
+                }
+            };
+            callback([button, button1, button2, button3, button4]);
+        });
+        vConsole.addPlugin(parsecPlugin);
     </script>
     <script src='lib/matoya.js'></script>
     <script src='lib/weblib.js'></script>
